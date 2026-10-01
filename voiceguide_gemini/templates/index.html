@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>VoiceGuide · Gemini Voice Assistant</title>
+    <meta name="description" content="A simple Flask + Gemini voice chatbot with browser speech recognition and text-to-speech.">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <main class="app-shell">
+        <section class="assistant-card">
+            <header class="topbar">
+                <div class="brand">
+                    <div class="brand-mark" aria-hidden="true">V</div>
+                    <div>
+                        <h1>VoiceGuide</h1>
+                        <p>Gemini voice assistant</p>
+                    </div>
+                </div>
+                <div class="status-pill" id="statusPill">
+                    <span class="status-dot"></span>
+                    <span id="statusText">Ready</span>
+                </div>
+            </header>
+
+            <section class="chat" id="chat" aria-live="polite" aria-label="Conversation">
+                <div class="welcome-card" id="welcomeCard">
+                    <div class="orb large"><span></span></div>
+                    <h2>Talk naturally.</h2>
+                    <p>Type a message or use the microphone. Voice input is transcribed first, then Gemini generates the reply.</p>
+                    <div class="feature-row">
+                        <span>🎙️ Voice input</span>
+                        <span>🧠 Gemini brain</span>
+                        <span>🔊 Spoken reply</span>
+                    </div>
+                </div>
+            </section>
+
+            <div class="voice-preview" id="voicePreview" hidden>
+                <span class="pulse-dot"></span>
+                <span id="voicePreviewText">Listening…</span>
+            </div>
+
+            <footer class="composer-wrap">
+                <form class="composer" id="chatForm">
+                    <button type="button" class="icon-btn mic-btn" id="micBtn" aria-label="Start voice input" title="Start voice input">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 14a3 3 0 0 0 3-3V6a3 3 0 1 0-6 0v5a3 3 0 0 0 3 3Zm6-3a1 1 0 0 0-2 0 4 4 0 0 1-8 0 1 1 0 0 0-2 0 6 6 0 0 0 5 5.91V20H8a1 1 0 1 0 0 2h8a1 1 0 1 0 0-2h-3v-3.09A6 6 0 0 0 18 11Z"/></svg>
+                    </button>
+                    <textarea id="messageInput" rows="1" placeholder="Type a message…" autocomplete="off"></textarea>
+                    <button type="button" class="icon-btn speaker-toggle active" id="ttsBtn" aria-label="Toggle spoken replies" title="Toggle spoken replies">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4Zm12.5 3a4.5 4.5 0 0 0-2-3.75v7.5A4.5 4.5 0 0 0 16.5 12Zm0-8v2.06A7.5 7.5 0 0 1 16.5 17.94V20A9.5 9.5 0 0 0 16.5 4Zm2.5 8a7 7 0 0 1-1.5 4.36v2.55A9.98 9.98 0 0 0 21 12a9.98 9.98 0 0 0-3.5-7.91v2.55A7 7 0 0 1 19 12Z"/></svg>
+                    </button>
+                    <button class="send-btn" id="sendBtn" type="submit" aria-label="Send message">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m21.9 2.7-7.36 18.38c-.44 1.1-2.02.99-2.3-.16l-1.55-6.32-6.32-1.55c-1.15-.28-1.26-1.86-.16-2.3L18.59 3.4c1.69-.68 3.99-1.3 3.31-.7Zm-3.75 3.15-12.1 5.92 4.89 1.2 1.2 4.89 6.01-12.01Z"/></svg>
+                    </button>
+                </form>
+                <div class="composer-note">
+                    <span id="supportNote">Microphone support depends on your browser.</span>
+                    <span>Gemini model: {{ model }}</span>
+                </div>
+            </footer>
+        </section>
+    </main>
+
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
